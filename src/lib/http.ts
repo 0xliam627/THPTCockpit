@@ -6,9 +6,22 @@ export class PublicApiError extends Error {
   }
 }
 
-export async function fetchWithTimeout(input: RequestInfo | URL, init: RequestInit = {}, timeoutMs = 55000) {
-  const signal = AbortSignal.timeout(timeoutMs);
-  return fetch(input, { ...init, signal });
+export async function fetchWithTimeout(input: RequestInfo | URL, init: RequestInit = {}, timeoutMs = 55000, maxRetries = 3) {
+  let lastError: unknown;
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      const signal = AbortSignal.timeout(timeoutMs);
+      return await fetch(input, { ...init, signal });
+    } catch (error) {
+      lastError = error;
+      if (error instanceof Error && error.name === 'TimeoutError') {
+        throw error; // Don't retry on timeout to prevent exceeding Vercel maxDuration
+      }
+      // Wait a bit before retrying (exponential backoff)
+      await new Promise(res => setTimeout(res, 1000 * (i + 1)));
+    }
+  }
+  throw lastError;
 }
 
 export async function parseJsonResponse<T>(response: Response, fallbackMessage: string): Promise<T> {
