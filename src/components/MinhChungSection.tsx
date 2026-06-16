@@ -104,7 +104,7 @@ export function MinhChungSection() {
                     
                     <div className="mt-4 rounded-md border border-hairline bg-elevated p-3">
                       <h5 className="mb-1.5 text-xs uppercase tracking-wide text-green">Thông tin xét tuyển & Nộp minh chứng</h5>
-                      <p className="whitespace-pre-wrap text-sm leading-relaxed text-ink">{school.admissionRules}</p>
+                      <p className="whitespace-pre-wrap break-words text-sm leading-relaxed text-ink">{school.admissionRules}</p>
                     </div>
                     
                     {school.note && (
