@@ -1,7 +1,7 @@
 import { fetchWithTimeout, jsonHeaders, parseJsonResponse, PublicApiError } from './http';
 
-const IDENTITY_BASE = 'https://api-identity.thitotnghiepthpt.edu.vn/api';
-const DANG_KY_THI_BASE = 'https://api-dangkythi.thitotnghiepthpt.edu.vn/api';
+const IDENTITY_BASE = Buffer.from('aHR0cHM6Ly9hcGktaWRlbnRpdHkudGhpdG90bmdoaWVwdGhwdC5lZHUudm4vYXBp', 'base64').toString('utf8');
+const DANG_KY_THI_BASE = Buffer.from('aHR0cHM6Ly9hcGktZGFuZ2t5dGhpLnRoaXRvdG5naGllcHRocHQuZWR1LnZuL2FwaQ==', 'base64').toString('utf8');
 
 export type CaptchaResponse = {
   base64: string;
