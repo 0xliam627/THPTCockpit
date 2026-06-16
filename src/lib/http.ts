@@ -6,7 +6,7 @@ export class PublicApiError extends Error {
   }
 }
 
-export async function fetchWithTimeout(input: RequestInfo | URL, init: RequestInit = {}, timeoutMs = 10000) {
+export async function fetchWithTimeout(input: RequestInfo | URL, init: RequestInit = {}, timeoutMs = 55000) {
   const signal = AbortSignal.timeout(timeoutMs);
   return fetch(input, { ...init, signal });
 }

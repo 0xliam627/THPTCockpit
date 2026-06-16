@@ -4,6 +4,7 @@ import { extractSoBaoDanh } from '@/lib/mappers';
 import { getExamCard, getUserInfo, signIn } from '@/lib/thpt-api';
 
 export const dynamic = 'force-dynamic';
+export const maxDuration = 60;
 
 export async function POST(request: Request) {
   try {

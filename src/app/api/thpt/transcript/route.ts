@@ -3,6 +3,7 @@ import { toPublicError } from '@/lib/http';
 import { getTranscript, type Lop } from '@/lib/thpt-api';
 
 export const dynamic = 'force-dynamic';
+export const maxDuration = 60;
 
 export async function POST(request: Request) {
   try {
