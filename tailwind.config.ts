@@ -19,6 +19,7 @@ const config: Config = {
         red: '#f87171',
         green: '#4ade80',
         yellow: '#fbbf24',
+        purple: '#a855f7',
       },
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],

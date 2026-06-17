@@ -4,13 +4,14 @@ import { useEffect, useState } from 'react';
 import { ExamCardView } from './ExamCardView';
 import { SchoolRecommendations } from './SchoolRecommendations';
 import { TranscriptView } from './TranscriptView';
+import { AspirationRecommendations } from './AspirationRecommendations';
 import type { LoginResult, TranscriptBundle } from './types';
 
 type LoadState<T> = { loading: boolean; data: T | null; error: string };
 
 export function Dashboard({ data, onLogout }: { data: LoginResult; onLogout: () => void }) {
   const [transcriptBundle, setTranscriptBundle] = useState<LoadState<TranscriptBundle>>({ loading: true, data: null, error: '' });
-  const [activeTab, setActiveTab] = useState<'exam' | 'transcript' | 'recommendation'>('exam');
+  const [activeTab, setActiveTab] = useState<'exam' | 'transcript' | 'recommendation' | 'aspiration'>('exam');
 
   useEffect(() => {
     setTranscriptBundle({ loading: true, data: null, error: '' });
@@ -61,7 +62,13 @@ export function Dashboard({ data, onLogout }: { data: LoginResult; onLogout: () 
           onClick={() => setActiveTab('recommendation')} 
           className={`shrink-0 px-5 py-3 text-sm font-medium border-b-2 transition-colors ${activeTab === 'recommendation' ? 'border-blue text-ink' : 'border-transparent text-mute hover:text-ink'}`}
         >
-          Tư vấn chọn trường
+          Tư vấn Xét học bạ
+        </button>
+        <button 
+          onClick={() => setActiveTab('aspiration')} 
+          className={`shrink-0 px-5 py-3 text-sm font-medium border-b-2 transition-colors ${activeTab === 'aspiration' ? 'border-blue text-ink' : 'border-transparent text-mute hover:text-ink'}`}
+        >
+          Chiến thuật Nguyện vọng
         </button>
       </div>
 
@@ -73,6 +80,9 @@ export function Dashboard({ data, onLogout }: { data: LoginResult; onLogout: () 
         )}
         {activeTab === 'recommendation' && (
           transcriptBundle.data ? <SchoolRecommendations userScores={transcriptBundle.data.userScores} /> : <LoadingCard title="Gợi ý tuyển sinh sẽ mở sau khi học bạ tải xong." />
+        )}
+        {activeTab === 'aspiration' && (
+          <AspirationRecommendations userScores={transcriptBundle.data?.userScores || {}} />
         )}
       </div>
     </div>
